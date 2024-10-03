@@ -2,15 +2,13 @@ import db from "@repo/db/client";
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt";
 import { z } from "zod";
-import { JWT } from "next-auth/jwt";
-import { Session } from "inspector/promises";
 
 export const authOptions = {
     providers: [
       CredentialsProvider({
           name: 'Credentials',
           credentials: {
-            phone: { label: "Phone number", type: "text", placeholder: "1231231231", required: true },
+            phone: { label: "Phone number", type: "text", placeholder: "1234567890", required: true },
             password: { label: "Password", type: "password", required: true }
           },
           async authorize(credentials: {phone: string, password: string} | undefined) {
@@ -71,16 +69,11 @@ export const authOptions = {
     ],
     secret: process.env.JWT_SECRET || "secret",
     callbacks: {
-        async session({ token, session }: {token : JWT, session : Session & {
-            user: {
-                id: string;
+        async session({ token, session }: any) {
+            if (token.sub) {
+                session.user.id = token.sub;
             }
-        }}) 
-            {
-                if (token.sub) {
-                    session.user.id = token.sub;
-                }
-                return session;
-            }
+            return session;
+        }
     }
   }
