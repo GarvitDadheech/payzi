@@ -1,17 +1,18 @@
-import { NextResponse } from "next/server"
-import db from "@repo/db/client";
-
+import { getServerSession } from "next-auth"
+import { NextResponse } from "next/server";
+import { authOptions } from "../../lib/auth";
 
 export const GET = async () => {
-    await db.user.create({
-        data: {
-            number: "8924032430",
-            email: "hiifwdf@gmail.com",
-            name: "chuimiu",
-            password: "4u8324u"
-        }
-    })
+    const session = await getServerSession(authOptions);
+    console.log("Session data:", session);
+    if (session.user) {
+        return NextResponse.json({
+            user: session.user
+        })
+    }
     return NextResponse.json({
-        message: "all done"
+        message: "You are not logged in"
+    }, {
+        status: 403
     })
 }

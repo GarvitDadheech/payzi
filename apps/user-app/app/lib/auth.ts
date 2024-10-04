@@ -36,12 +36,15 @@ export const authOptions = {
 
             if (existingUser) {
                 const passwordValidation = await bcrypt.compare(credentials.password, existingUser.password);
+                console.log("Fetched user from DB:", existingUser); // This should show the user object
                 if (passwordValidation) {
-                    return {
+                    const userData = {
                         id: existingUser.id.toString(),
                         name: existingUser.name,
-                        number: existingUser.number
-                    }
+                        number: existingUser.number // Ensure this is included
+                    };
+                    console.log("User data returned:", userData);
+                    return userData;
                 }
                 return null;
             }
