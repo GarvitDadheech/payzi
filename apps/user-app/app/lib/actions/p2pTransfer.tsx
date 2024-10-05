@@ -41,8 +41,6 @@ export async function p2pTransfer(to: string, amount: number) {
             data: { amount: { increment: amount } },
           });
 
-          const toUserId = toUser?.id;
-
           await tx.p2pTransfer.create({
             data: {
                 fromUserId: Number(from),

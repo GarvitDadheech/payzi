@@ -26,8 +26,6 @@ export const authOptions = {
                 throw new Error(parsedCredentials.error.errors.map(err => err.message).join(", "));
             }      
 
-            const { phone, password } = parsedCredentials.data;
-
             const existingUser = await db.user.findFirst({
                 where: {
                     number: credentials.phone
