@@ -1,30 +1,41 @@
 import express from "express";
-import db from "@repo/db/client"
+import db from "@repo/db/client";
+import {z} from "zod";
 const app = express();
 
 app.use(express.json());
 
+const paymentInfoSchema = z.object({
+    token: z.string(),
+    userId: z.string(),
+    amount: z.string()
+})
+
 app.post("/hdfcWebhook",async (req,res) => {
-    const paymentInfo : {token: string,userId:string,amount: string} = {
-        token: req.body.token,
-        userId: req.body.userId,
-        amount: req.body.userId
+    const paymentInfoResult = await paymentInfoSchema.safeParse(req.body);
+    if (!paymentInfoResult.success) {
+        return res.status(400).json({
+            message: "Invalid payment info",
+            errors: paymentInfoResult.error.errors
+        });
     }
+
+    const { token, userId, amount } = paymentInfoResult.data;
     try{
         await db.$transaction([
             db.balance.update({
                 where: {
-                    userId: Number(paymentInfo.userId)
+                    userId: Number(userId)
                 },
                 data: {
                     amount: {
-                        increment: Number(paymentInfo.amount)
+                        increment: Number(amount)
                     }
                 }
             }),
             db.onRampTransaction.update({
                 where: {
-                    token: paymentInfo.token
+                    token: token
                 },
                 data: {
                     status: "Success"
