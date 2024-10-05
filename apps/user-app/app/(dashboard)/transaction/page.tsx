@@ -24,6 +24,14 @@ export default async function TransactionsPage() {
         { toUserId: Number(userId) },
       ],
     },
+    include: {
+        fromUser: {
+          select: { number: true }
+        },
+        toUser: {
+          select: { number: true }
+        }
+      },
     orderBy: { timestamp: 'desc' },
   });
 
@@ -39,8 +47,8 @@ export default async function TransactionsPage() {
       type: 'p2p' as const,
       time: t.timestamp,
       amount: t.fromUserId === Number(userId) ? -t.amount : t.amount,
-      fromUserId: t.fromUserId.toString(),
-      toUserId: t.toUserId.toString(),
+      fromUserId: t.fromUser.number,
+      toUserId: t.toUser.number,
     })),
   ].sort((a, b) => b.time.getTime() - a.time.getTime());
 

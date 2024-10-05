@@ -17,6 +17,19 @@ type P2PTransaction = {
   toUserId: string;
 };
 
+const getStatusColor = (status: string) => {
+  switch (status.toLowerCase()) {
+    case 'success':
+      return 'text-green-600';
+    case 'failure':
+      return 'text-red-600';
+    case 'processing':
+      return 'text-yellow-600';
+    default:
+      return 'text-gray-600';
+  }
+};
+
 type Transaction = OnRampTransaction | P2PTransaction;
 
 export const AllTransactions = ({
@@ -48,8 +61,13 @@ export const AllTransactions = ({
                 {t.time.toDateString()}
               </div>
               {t.type === 'onRamp' && (
-                <div className="text-slate-600 text-xs">
-                  Provider: {t.provider}
+                <div>
+                  <div className="text-slate-600 text-xs">
+                    Provider: {t.provider}
+                  </div>
+                  <div className={`text-xs ${getStatusColor(t.status)}`}>
+                    Status: {t.status}
+                  </div>
                 </div>
               )}
               {t.type === 'p2p' && (
