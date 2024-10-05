@@ -1,7 +1,8 @@
+import React from 'react';
 import db from "@repo/db/client";
 import { AddMoney } from "../../../components/AddMoneyCard";
 import { BalanceCard } from "../../../components/BalanceCard";
-import { OnRampTransactions } from "../../../components/OnRampTxns";
+import { AllTransactions } from "../../../components/AllTransactions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
 
@@ -23,34 +24,40 @@ async function getOnRampTransactions() {
     const txns = await db.onRampTransaction.findMany({
         where: {
             userId: Number(session?.user?.id)
+        },
+        orderBy: {
+            startTime: 'desc'
         }
     });
     return txns.map(t => ({
+        type: 'onRamp' as const,
         time: t.startTime,
         amount: t.amount,
         status: t.status,
         provider: t.provider
-    }))
+    }));
 }
 
-export default async function() {
+export default async function TransferPage() {
     const balance = await getBalance();
     const transactions = await getOnRampTransactions();
-    console.log(transactions);
-    return <div className="w-screen">
-        <div className="text-4xl text-[#6a51a6] pt-8 mb-8 font-bold">
-            Transfer
-        </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-4">
-            <div>
-                <AddMoney />
+
+    return (
+        <div className="w-screen">
+            <div className="text-4xl text-[#6a51a6] pt-8 mb-8 font-bold">
+                Transfer
             </div>
-            <div>
-                <BalanceCard amount={balance.amount} locked={balance.locked} />
-                <div className="pt-4">
-                    <OnRampTransactions transactions={transactions} />
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-4">
+                <div>
+                    <AddMoney />
+                </div>
+                <div>
+                    <BalanceCard amount={balance.amount} locked={balance.locked} />
+                    <div className="pt-4">
+                        <AllTransactions transactions={transactions} />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    );
 }
