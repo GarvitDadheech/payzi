@@ -40,7 +40,7 @@ async function main() {
         status: OnRampStatus.Processing,
         amount: 15000,
         token: "124",
-        provider: "ICICI Bank",
+        provider: "HDFC Bank",
       },
     },
     {
@@ -66,7 +66,7 @@ async function main() {
         status: OnRampStatus.Failure,
         amount: 5000,
         token: "126",
-        provider: "SBI",
+        provider: "Axis Bank",
       },
     },
   ];
