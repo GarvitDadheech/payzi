@@ -42,7 +42,6 @@ export const authOptions = {
                         name: existingUser.name,
                         number: existingUser.number 
                     };
-                    console.log("User data returned:", userData);
                     return userData;
                 }
                 return null;
@@ -73,7 +72,7 @@ export const authOptions = {
     callbacks: {
         async session({ token, session }: any) {
             if (token.sub) {
-                session.user.id = token.sub;
+            session.user.id = token.sub;
             }
             return session;
         }
