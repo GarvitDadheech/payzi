@@ -11,7 +11,7 @@ const paymentInfoSchema = z.object({
     amount: z.string()
 })
 
-app.post("/hdfcWebhook",async (req,res) => {
+app.post("/bankWebhook",async (req,res) => {
     const paymentInfoResult = await paymentInfoSchema.safeParse(req.body);
     if (!paymentInfoResult.success) {
         return res.status(400).json({
