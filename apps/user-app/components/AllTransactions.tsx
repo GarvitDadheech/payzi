@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card } from "@repo/ui/card";
 
-// Define the transaction types
 type OnRampTransaction = {
   type: 'onRamp';
   time: Date;
@@ -21,13 +20,14 @@ type P2PTransaction = {
 type Transaction = OnRampTransaction | P2PTransaction;
 
 export const AllTransactions = ({
-  transactions
+  transactions,title
 }: {
   transactions: Transaction[];
+  title:string
 }) => {
   if (!transactions.length) {
     return (
-      <Card title="All Transactions">
+      <Card title={title}>
         <div className="text-center pb-8 pt-8">
           No transactions found
         </div>
@@ -36,7 +36,7 @@ export const AllTransactions = ({
   }
 
   return (
-    <Card title="All Transactions">
+    <Card title={title}>
       <div className="pt-2">
         {transactions.map((t, index) => (
           <div key={index} className="flex justify-between mb-4">

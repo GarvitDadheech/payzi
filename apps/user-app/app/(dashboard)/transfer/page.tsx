@@ -54,7 +54,7 @@ export default async function TransferPage() {
                 <div>
                     <BalanceCard amount={balance.amount} locked={balance.locked} />
                     <div className="pt-4">
-                        <AllTransactions transactions={transactions} />
+                        <AllTransactions transactions={transactions} title="OnRamp Transactions"/>
                     </div>
                 </div>
             </div>

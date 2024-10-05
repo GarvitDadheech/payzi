@@ -71,7 +71,7 @@ export const authOptions = {
     secret: process.env.JWT_SECRET || "secret",
     callbacks: {
         async session({ token, session }: any) {
-            if (token.sub) {
+            if (token.sub) {    
             session.user.id = token.sub;
             }
             return session;
