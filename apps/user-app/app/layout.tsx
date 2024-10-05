@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { Providers } from "../provider";
-import AppBarClient from "./components/AppBarClient";
+import AppBarClient from "../components/AppBarClient";
 
 const inter = Inter({ subsets: ["latin"] });
 
