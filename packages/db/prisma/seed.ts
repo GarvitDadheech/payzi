@@ -6,8 +6,8 @@ async function main() {
   const users = [
     {
       number: '9999999999',
-      password: 'alice',
-      name: 'Alice Johnson',
+      password: '$2b$10$FV1Z7mbgZ7MkVckidWcmiOeYtLvNe1KDAuIfK3uA26cOODqDSTvkW',
+      name: 'Jasmine Johnson',
       balance: 50000,
       transaction: {
         startTime: new Date(),
@@ -19,8 +19,8 @@ async function main() {
     },
     {
       number: '9999999998',
-      password: 'bob',
-      name: 'Bob Smith',
+      password: '$2b$10$3pmstoCM/9outISGt0eemeQL5i/SpxyA3zrWEjT/gUbKPxSe/OsrS',
+      name: 'Jennifer Smith',
       balance: 15000,
       transaction: {
         startTime: new Date(),
@@ -32,7 +32,7 @@ async function main() {
     },
     {
       number: '9999999997',
-      password: 'charlie',
+      password: '$2b$10$gvEXF24lLayJTzCpl1B1N.Z5mSVYC376gWG/Z7hVcwdc.F2aJCqzm',
       name: 'Charlie Brown',
       balance: 30000,
       transaction: {
@@ -45,8 +45,8 @@ async function main() {
     },
     {
       number: '9999999996',
-      password: 'diana',
-      name: 'Diana Prince',
+      password: '$2b$10$Z9WBWvI1spTBavN9K1M4/egMR4Q9FcwGZpRhMXN/f2NUrvoHQ.6s.',
+      name: 'Prince Parker',
       balance: 80000,
       transaction: {
         startTime: new Date(),
@@ -58,8 +58,8 @@ async function main() {
     },
     {
       number: '9999999995',
-      password: 'eric',
-      name: 'Eric Cartman',
+      password: '$2b$10$U01En4aq2p1BxRDjFGDn1.KihcXgVvrP3WU0sDYAiLDMK9ejZFlcm',
+      name: 'Jeremy Cartman',
       balance: 10000,
       transaction: {
         startTime: new Date(),
